@@ -1,0 +1,53 @@
+.container
+  .row 
+    .searchcontainer
+      .col-md-2
+      .col-md-7
+      .col-md-3 
+        -if @current_user.type == "Manager"  
+          .pull-center
+            = link_to 'Add Project', new_user_project_path(@current_user.id), class: "btn btn-success"
+
+  -if !@projects.empty?        
+    .row
+      .col-md-1
+      .col-md-10
+        .table-responsive
+          %table.table-hover.table-bordered.projects_listing_table
+            %tbody
+              %tr
+                %th.text-center #
+                %th.text-center Name
+                %th.text-center Description
+                - if @current_user.type == "Manager"
+                  %th.text-center Team
+                  %th.text-center Actions
+              - @projects.each_with_index do |object,i|
+                %tr
+                %td.text-center= i+1
+                %td.text-center= link_to object.name, user_project_todos_path(@current_user.id, object)
+                %td.text-center= object.description
+                
+                - if @current_user.type == "Manager"
+                  %td.text-center= object.developers.pluck(:name).join(',') unless object.developers.empty?
+                  %td.text-center
+                    = link_to "Edit", edit_user_project_path(@current_user.id, object), class: 'button'
+                    = link_to 'Delete', user_project_path(@current_user.id, object), method: :delete, data: { confirm: 'Are you sure?' }
+
+
+
+                / %td.text-center
+                /   =link_to project_path(object,'project[active]' =>is_inactive_object?(object)), method: :patch, data: {confirm: 'Are you sure?'} do 
+                /     -if object.active
+                /       .text-center
+                /         %button.btn.btn-success{:type=> "button"}
+                /           %span.glyphicon.glyphicon-ok-circle>
+                /     -else
+                /       .text-center
+                /         %button.btn.btn-danger{:type=> "button"}
+                /           %span.glyphicon.glyphicon-remove-circle>
+  -else
+    .alert.alert-danger
+      No record is found!!                         
+/ .text-center
+/   = paginate @projects 

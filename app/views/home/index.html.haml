@@ -1,0 +1,39 @@
+!!!
+%html
+  %head
+    // %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
+    %title Project Tracker
+   
+  %body   
+    .jumbotron
+      .container.text-center
+        %h1#titleOnIndex Project Management System
+        -if !user_signed_in?
+          %h2 Want to be a part of this application??
+          / %span.glyphicon.glyphicon-chevron-down
+          %br
+          %br
+          %br
+          = link_to "Login", user_session_path, class: "btn btn-success"
+    .container.text-center  
+      %h4#seeHow See How 
+      .container-fluid.instructions
+        .row
+          .col-xs-12.col-md-3
+            .step-one 1. Login
+            / # .login-image= image_tag("login1.png",width:"55px",height:"55px")
+            .description If already a member then login to our site
+          .col-xs-12.col-md-3
+            .step-one 2. Choose
+            / # .login-image= image_tag("choice.png",width:"55px",height:"55px")
+            .description Browse to find the vendors and their menus to find the food you like
+          .col-xs-12.col-md-3
+            .step-one 3. Order
+            / # .login-image= image_tag("order.png",width:"55px",height:"55px")
+            .description Place an order of the food you want
+          .col-xs-12.col-md-3
+            .step-one 4. Enjoy
+            / # .login-image= image_tag("enjoy_food.png",width:"55px",height:"55px")
+            .description Food is prepared and delivered to your door
+              

@@ -1,0 +1,16 @@
+%nav.navbar.navbar-light.bg-light
+  %a.navbar-brand{:href => root_path} Project Tracker
+  %form.form-inline
+    - if !user_signed_in?
+      = link_to new_user_session_path do
+        %span.glyphicon.glyphicon-log-in
+        Login
+    - else
+      .form-group
+        = link_to "Developer wise Stats", users_path(current_user.id)
+        = link_to "Project wise Stats"
+        = link_to "Projects", user_projects_path(current_user.id)
+        = link_to destroy_user_session_path, method: :delete do
+          %span.glyphicon.glyphicon-log-out
+          Logout
+            

@@ -1,0 +1,27 @@
+.container.Absolute-Center.is-Responsive.project
+  .row
+    .col-md-3
+    .col-md-6  
+      .panel.panel-success
+        .panel-heading
+          .panel-title 
+            -if params[:action] == 'new'
+              .h3.text-center.strong Add New Project
+            -else
+              .h3.text-center.strong Edit Details of #{@project.name}
+        .panel-body.project    
+          .form-group
+            .col-md-6  
+              = f.input :name, label: "Name", placeholder: 'Name'
+            .col-md-6
+          .form-group
+            .col-md-8
+              = f.input :description, as: :text, label: "Description"
+            .col-md-4
+          .form-group
+            .col-md-10
+              = f.input :developer_ids, label: "Developers", as: :select, collection: @developers, input_html: { multiple: true , id: "dropdown"}, include_blank: false
+            .col-md-2
+          .submit.text-center
+            = f.button :submit, class: "btn btn-success"
+            = link_to "Cancel", :back, {:class=>"btn btn-default"}
