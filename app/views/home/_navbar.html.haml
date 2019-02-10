@@ -7,8 +7,8 @@
         Login
     - else
       .form-group
-        = link_to "Developer wise Stats", users_path(current_user.id)
-        = link_to "Project wise Stats"
+        = link_to "Developer wise Stats", user_developer_stats_path(current_user.id)
+        = link_to "Project wise Stats", user_project_stats_path(current_user.id)
         = link_to "Projects", user_projects_path(current_user.id)
         = link_to destroy_user_session_path, method: :delete do
           %span.glyphicon.glyphicon-log-out

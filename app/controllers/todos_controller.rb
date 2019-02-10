@@ -1,6 +1,7 @@
 class TodosController < ApplicationController
 
-  before_action :load_user, :load_project
+  before_action :load_user
+  before_action :load_project, except: [:developer_stats, :project_stats]
 
   before_action :load_todo,    only: [:show, :update, :destroy]
   before_action :load_developers, only: [:new, :edit]
@@ -40,6 +41,35 @@ class TodosController < ApplicationController
     else
       render :new and return
     end
+  end
+
+  def developer_stats
+    @assigned_developers = Todo.includes(:developers).collect{|t| t.developers.pluck(:name)}.flatten.uniq.sort
+    status_arr = %w(New InProgress Done)
+    @stats = {}
+
+    status_arr.each do |status|
+      dev = {}
+      @assigned_developers.each do |developer|
+        dev[developer] = Developer.where(name: developer).first.assigned_todos.where(status: status).pluck(:name)
+        end
+      @stats[status] = dev
+    end
+  end
+
+  def project_stats
+    @project_names = Project.where(id: Todo.pluck(:project_id).uniq).pluck(:name)
+    status_arr = %w(New InProgress Done)
+    @stats = {}
+
+    status_arr.each do |status|
+      project = {}
+      @project_names.each do |p|
+        project[p] = Project.where(name: p).first.todos.where(status: status).pluck(:name)
+      end
+      @stats[status] = project
+    end
+    p @stats
   end
 
   private

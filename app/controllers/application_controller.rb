@@ -9,10 +9,6 @@ class ApplicationController < ActionController::Base
   # end
 
   def after_sign_in_path_for(resource)
-    if current_user.type == "Manager"
-      # company_projects_path(current_user.company_id)
-    elsif current_user.type == "Developer"
-      user_projects_path(current_user.id) # REDIRECT TO PLACE ORDER PATH
-    end 
+    user_projects_path(current_user.id)
   end
 end

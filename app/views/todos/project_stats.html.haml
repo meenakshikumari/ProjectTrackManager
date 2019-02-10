@@ -1,0 +1,20 @@
+%h1 Project Wise Stats
+.row
+  .col-md-1
+  .col-md-10
+    .table-responsive
+      %table
+        %tbody
+          %tr
+            %th.text-center TodoStatus
+            - @project_names.each do |project_name|
+              %th.text-center= project_name
+          - @stats.each do |status, list|
+            %tr
+              %td= status
+              - list.each do |dev, todos|
+                - if !todos.empty?
+                  %td
+                    %ol
+                    - todos.each do |todo|
+                      %li= todo
