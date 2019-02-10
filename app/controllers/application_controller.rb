@@ -10,5 +10,10 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     user_projects_path(current_user.id)
+    if current_user.type == "Manager"
+      user_developer_stats_path(current_user.id)
+    elsif current_user.type == "Developer"
+      user_projects_path(current_user.id)
+    end
   end
 end

@@ -18,6 +18,10 @@
 @import "users";
 @import "todos";
 
+td, th {
+  border: solid 1px black;
+}
+
 /*body {
   -webkit-background-size: cover;
 

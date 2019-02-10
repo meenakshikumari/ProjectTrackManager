@@ -11,7 +11,7 @@
               %th.text-center= developer_name
           - @stats.each do |status, list|
             %tr
-              %td= status
+              %td.text-center= status
               - list.each do |dev, todos|
                 - if !todos.empty?
                   %td
